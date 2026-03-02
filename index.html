@@ -1,11 +1,423 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>✨ Galeria Infantil - 50 Atividades Mágicas ✨</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Comic Sans MS', 'Chalkboard', cursive, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f9e8b5 0%, #fcd5b5 100%);
+            min-height: 100vh;
+            padding: 2rem 1.5rem;
+        }
+
+        /* cabeçalho divertido */
+        .cabecalho-galeria {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .cabecalho-galeria h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #2d4059;
+            text-shadow: 4px 4px 0 #fbd46d, 6px 6px 0 rgba(0,0,0,0.1);
+            letter-spacing: 2px;
+            word-break: break-word;
+        }
+
+        .cabecalho-galeria p {
+            font-size: 1.5rem;
+            color: #1f6f8b;
+            background-color: #ffeeccdd;
+            display: inline-block;
+            padding: 0.5rem 2rem;
+            border-radius: 60px;
+            margin-top: 0.5rem;
+            box-shadow: 0 6px 0 #99a8b2;
+            border: 2px solid #2d4059;
+        }
+
+        /* contador 50 imagens */
+        .contador {
+            background: #ffb26b;
+            max-width: 300px;
+            margin: 0 auto 2rem auto;
+            padding: 0.8rem 1rem;
+            border-radius: 50px;
+            border: 3px solid #3a2c1f;
+            font-weight: bold;
+            font-size: 1.8rem;
+            color: #2d1b0e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 8px 0 #7c5a3b;
+        }
+
+        .contador span {
+            background: #ffd93d;
+            padding: 0.2rem 1.2rem;
+            border-radius: 30px;
+            font-size: 2.5rem;
+            border: 2px solid black;
+        }
+
+        /* GRADE — 5 colunas x 10 linhas = 50 células */
+        .grade-galeria {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);  /* 5 colunas */
+            gap: 1.2rem;
+            max-width: 1300px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: #fce8b3a0;
+            border-radius: 70px 70px 30px 30px;
+            border: 5px dashed #ea9010;
+            box-shadow: 0 20px 30px #6b4f3f70;
+        }
+
+        /* cada card infantil */
+        .card-atividade {
+            background: #fffef7;
+            border-radius: 40px 40px 25px 25px;
+            border: 4px solid #3b2c1e;
+            box-shadow: 0 10px 0 #8b6c4d, 0 12px 18px rgba(0,0,0,0.2);
+            padding: 1rem 0.6rem 0.8rem 0.6rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 210px;
+            cursor: pointer;
+            background: linear-gradient(145deg, #fcf8e8, #ffe9c4);
+        }
+
+        /* efeito brincalhão ao passar o mouse */
+        .card-atividade:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 0 #c59a6b, 0 20px 25px #3b2b1d;
+            border-color: #f6ae2d;
+        }
+
+        /* área da imagem: todas as tags img vão ter essa cara */
+        .card-atividade img {
+            width: 100%;
+            aspect-ratio: 1 / 1;          /* quadradinho fofo */
+            object-fit: cover;              /* cobre sem deformar */
+            background-color: #b0dee2;       /* fundo placeholder divertido */
+            border-radius: 35% 35% 25% 25%;
+            border: 4px solid white;
+            outline: 3px solid #644e37;
+            box-shadow: inset 0 0 0 3px #ffb347, 0 6px 0 #5f4a33;
+            display: block;
+            transition: all 0.2s;
+            padding: 0;                     /* sem espaços internos */
+        }
+
+        /* nome da atividade (texto ilustrativo embaixo da imagem) */
+        .card-atividade figcaption {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #2f2519;
+            background: #ffddbb;
+            width: 100%;
+            text-align: center;
+            padding: 0.5rem 0;
+            margin-top: 0.6rem;
+            border-radius: 30px;
+            border: 2px solid #a1683a;
+            box-shadow: inset 0 -3px 0 #bd8a5c;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* 50 imagens, usamos imagens de placeholder (loremflickr ou via.placeholder) 
+           mas todas apontam para links de atividades infantis ilustrativas */
+        .card-atividade img[src] {
+            /* garantia de quebra se link falhar */
+        }
+
+        /* mensagem extra para links ilustrativos (fofos) */
+        .rodape-nota {
+            text-align: center;
+            background: #ffc18c;
+            padding: 1.8rem 1rem;
+            border-radius: 120px 120px 40px 40px;
+            border: 4px solid #654321;
+            max-width: 900px;
+            margin: 2rem auto 0 auto;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2b1b0e;
+            box-shadow: 0 15px 0 #8b6b4f;
+        }
+
+        .rodape-nota a {
+            background: #fff2b5;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            text-decoration: none;
+            color: #1d4d4f;
+            font-weight: 800;
+            border: 2px solid #211b10;
+        }
+
+        /* ajuste para telas menores: vira 3 colunas */
+        @media (max-width: 800px) {
+            .grade-galeria {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+            .cabecalho-galeria h1 {
+                font-size: 2.3rem;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .grade-galeria {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
 </head>
 <body>
-    eu não sei o que estou fazendo!!
+
+    <div class="cabecalho-galeria">
+        <h1>🧸 ATIVIDADES FANTÁSTICAS 🧸</h1>
+        <p>🌈 50 ideias para sorrir e aprender 🌈</p>
+    </div>
+
+    <!-- placar divertido: 50 imagens -->
+    <div class="contador">
+        <span>⭐ 50 ⭐</span>
+        <span>📸</span>
+    </div>
+
+    <!-- GALERIA GRADE 5x10 = 50 CARDS (CADA UM COM IMG) -->
+    <div class="grade-galeria">
+        <!-- 1 a 50 – links com ilustrações infantis (via.placeholder.com + loremflickr alternatives)
+             mas usaremos placeholder com temas claros + desenhos e números -->
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/220/220?image=1" alt="Gatinho pintor - atividade artes">
+            <figcaption>🎨 Pintura criativa</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/221/221?image=2" alt="Blocos de montar">
+            <figcaption>🧱 Blocos mágicos</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/222/222?image=3" alt="Massinha modelar">
+            <figcaption>🤲 Massinha colorida</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/223/223?image=4" alt="Fantoches animais">
+            <figcaption>🐼 Teatro de fantoches</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/224/224?image=5" alt="Leitura infantil">
+            <figcaption>📖 Hora da historinha</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/225/225?image=6" alt="Quebra-cabeça">
+            <figcaption>🧩 Quebra-cabeça</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/226/226?image=7" alt="Amarelinha">
+            <figcaption>🎯 Amarelinha divertida</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/227/227?image=8" alt="Dança das cadeiras">
+            <figcaption>🪑 Dança lúdica</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/228/228?image=9" alt="Pintura com os dedos">
+            <figcaption>🖐️ Pintura digital</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/229/229?image=10" alt="Origami fácil">
+            <figcaption>🦢 Dobraduras</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/230/230?image=11" alt="Circo malabarismo">
+            <figcaption>🤹 Malabarismo</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/231/231?image=12" alt="Plantar feijão">
+            <figcaption>🌱 Pequeno jardineiro</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/232/232?image=13" alt="Brincar de pega-pega">
+            <figcaption>🏃‍♂️ Pega-pega</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/233/233?image=14" alt="Cozinhar biscoitos">
+            <figcaption>🍪 Pequeno chef</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/234/234?image=15" alt="Brincar de casinha">
+            <figcaption>🏡 Casinha imaginária</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/235/235?image=16" alt="Teatro sombras">
+            <figcaption>👤 Sombras chinesas</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/236/236?image=17" alt="Bolhas de sabão">
+            <figcaption>🌀 Bolhas gigantes</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/237/237?image=18" alt="Circuito de obstáculos">
+            <figcaption>🏅 Circuito divertido</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/238/238?image=19" alt="Aprender números">
+            <figcaption>🔢 Números divertidos</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/239/239?image=20" alt="Caça ao tesouro">
+            <figcaption>🗺️ Caça ao tesouro</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/240/240?image=21" alt="Pintura aquarela">
+            <figcaption>🎨 Aquarela mágica</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/241/241?image=22" alt="Boliche infantil">
+            <figcaption>🎳 Boliche colorido</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/242/242?image=23" alt="Avião de papel">
+            <figcaption>✈️ Aviões de papel</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/243/243?image=24" alt="Bambolê">
+            <figcaption>⭕ Bambolê</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/244/244?image=25" alt="Cantar e dançar">
+            <figcaption>🎤 Karaokê kids</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/245/245?image=26" alt="Escultura areia">
+            <figcaption>🏖️ Areia mágica</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/246/246?image=27" alt="Pega vareta">
+            <figcaption>🧩 Pega-vareta</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/247/247?image=28" alt="Bingo infantil">
+            <figcaption>🔢 Bingo dos bichos</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/248/248?image=29" alt="Brincar de esconde-esconde">
+            <figcaption>🙈 Esconde-esconde</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/249/249?image=30" alt="Cama elástica">
+            <figcaption>🤸‍♂️ Pula-pula</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/250/250?image=31" alt="Ioiô e habilidades">
+            <figcaption>🪀 Ioiô divertido</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/251/251?image=32" alt="Cabo de guerra">
+            <figcaption>🔴 Cabo de guerra</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/252/252?image=33" alt="Peteca">
+            <figcaption>🏸 Peteca colorida</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/253/253?image=34" alt="Bola ao cesto">
+            <figcaption>🏀 Mini basquete</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/254/254?image=35" alt="Carrinhos de rolimã">
+            <figcaption>🚗 Carrinhos</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/255/255?image=36" alt="Massagem divertida">
+            <figcaption>🖐️ Massagem lúdica</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/256/256?image=37" alt="Equilíbrio objetos">
+            <figcaption>⚖️ Desafio equilíbrio</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/257/257?image=38" alt="Construir forte">
+            <figcaption>🏰 Forte de almofadas</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/258/258?image=39" alt="Pintura rosto">
+            <figcaption>🎭 Pintura facial</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/259/259?image=40" alt="Experiências científicas">
+            <figcaption>🧪 Pequeno cientista</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/260/260?image=41" alt="Pega rabo">
+            <figcaption>🐷 Pega-rabo</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/261/261?image=42" alt="Mímica">
+            <figcaption>🎭 Mímica divertida</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/262/262?image=43" alt="Reciclagem arte">
+            <figcaption>♻️ Arte com recicláveis</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/263/263?image=44" alt="Jogo da memória">
+            <figcaption>🧠 Memória animal</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/264/264?image=45" alt="Telefone de copo">
+            <figcaption>📞 Telefone sem fio</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/265/265?image=46" alt="Acampamento sala">
+            <figcaption>🏕️ Acampamento indoor</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/266/266?image=47" alt="Trilha sensorial">
+            <figcaption>👣 Pé na trilha</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/267/267?image=48" alt="Massagem com bolinhas">
+            <figcaption>⚪ Circuito sensorial</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/268/268?image=49" alt="Dança da laranja">
+            <figcaption>🍊 Dança da laranja</figcaption>
+        </figure>
+        <figure class="card-atividade">
+            <img src="https://placekitten.com/269/269?image=50" alt="Pintura com gelo">
+            <figcaption>🧊 Pintura gelada</figcaption>
+        </figure>
+        <!-- FIM DOS 50 CARDS -->
+    </div>
+
+    <footer class="rodape-nota">
+        ⭐ 50 espaços preenchidos com 🌟 imagens divertidas 🌟 <br>
+        <a href="#">📸 Clique em cada atividade para ver ideias!</a>
+    </footer>
+
+    <!-- Observação: todos os links img seguem o padrão <img src="link"> 
+         Cada card tem um placeholder de gatinhos (fofos e infantis) 
+         e uma legenda de atividade. Você pode substituir os links por imagens reais -->
 </body>
 </html>
